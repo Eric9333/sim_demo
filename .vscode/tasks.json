@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Catkin Build",
+      "type": "shell",
+      "command": "catkin_make",
+      "group": "build",
+      "options": { "cwd": "${workspaceFolder}" }
+    },
+    {
+      "label": "Source ROS & Devel",
+      "type": "shell",
+      "command": "source /opt/ros/melodic/setup.bash && source devel/setup.bash",
+      "problemMatcher": []
+    },
+    {
+      "label": "Launch Rviz",
+      "type": "shell",
+      "command": "roslaunch sim_demo display.launch",
+      "group": "test",
+      "dependsOn": "Source ROS & Devel"
+    },
+    {
+      "label": "Launch Gazebo",
+      "type": "shell",
+      "command": "roslaunch sim_demo gazebo.launch",
+      "group": "test",
+      "dependsOn": "Source ROS & Devel"
+    }
+  ]
+}
