@@ -1,0 +1,16 @@
+<launch>
+  <arg name="world_file" default="$(find sim_demo)/worlds/obstacle_world.world"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_file)"/>
+  </include>
+  <param name="robot_description" command="$(find xacro)/xacro $(find sim_demo)/urdf/simple_robot.urdf.xacro"/>
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -model simple_robot -x 0 -y 0 -z 0.1"/>
+  <node pkg="slam_gmapping" type="slam_gmapping" name="slam_gmapping">
+    <remap from="scan" to="/simple_scan"/>
+  </node>
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"
+        name="teleop" output="screen">
+    <remap from="cmd_vel" to="/cmd_vel"/>
+  </node>
+</launch>
