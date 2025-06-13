@@ -1,0 +1,11 @@
+<launch>
+  <!-- 加载 robot_description 参数 -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro $(find sim_demo)/urdf/robot.urdf.xacro"/>
+  <!-- Joint State Publisher GUI -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher_gui"
+        type="joint_state_publisher"/>
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find sim_demo)/config/robot.rviz"/>
+</launch>
+

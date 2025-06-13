@@ -1,0 +1,19 @@
+<launch>
+  <!-- 启动 Gazebo -->
+  <arg name="world_file" default="$(find sim_demo)/worlds/box_house.world"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_file)"/>
+  </include>
+  <!-- 发布 robot_description -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro $(find sim_demo)/urdf/robot.urdf.xacro"/>
+  <!-- 将模型 spawn 到 Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -model sim_robot -x 0 -y 0 -z 0.1" />
+  <!-- Teleop 控制 -->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"
+        name="teleop" output="screen">
+    <remap from="cmd_vel" to="/cmd_vel"/>
+  </node>
+</launch>
+

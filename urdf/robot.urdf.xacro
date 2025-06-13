@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot name="sim_demo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual> <geometry>
+        <mesh filename="package://sim_demo/meshes/autolabor_pro1.stl"/>
+      </geometry> </visual>
+    <collision> <geometry>
+        <mesh filename="package://sim_demo/meshes/autolabor_pro1.stl"/>
+      </geometry> </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.1" iyy="0.1" izz="0.1" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+  </link>
+  <!-- 激光雷达挂载 -->
+  <link name="laser_link"/>
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <origin xyz="0.2 0 0.3" rpy="0 0 0"/>
+  </joint>
+  <!-- Gazebo 插件 -->
+  <gazebo>
+    <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
+      <topicName>/scan</topicName>
+      <frameName>laser_link</frameName>
+    </plugin>
+  </gazebo>
+</robot>
+
