@@ -1,0 +1,16 @@
+{
+  "name": "sim_demo ROS1 Melodic",
+  "image": "osrf/ros:melodic-desktop-full",
+  "postCreateCommand": "apt update && apt install -y python-rosinstall-generator python-wstool build-essential",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "ros.distro": "melodic"
+  },
+  "extensions": [
+    "ms-iot.vscode-ros",
+    "github.copilot",
+    "ms-vscode.cpptools"
+  ],
+  "forwardPorts": [11311, 9090],
+  "remoteUser": "root"
+}
